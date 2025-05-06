@@ -1,0 +1,237 @@
+/* Importação das fontes do Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inria+Serif:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Oswald:wght@200..700&family=Patrick+Hand&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lemonada:wght@300..700&display=swap');
+
+/* Definições de variáveis de cores */
+:root {
+    --prima-es: #9D9383;
+    /* Cor primária escura */
+    --prima: #BFB8AE;
+    /* Cor primária */
+    --prima-cl: #E1DDD9;
+    /* Cor primária clara */
+
+    --secun-es: #281F16;
+    /* Cor secundária escura */
+    --secun: #594432;
+    /* Cor secundária */
+    --secun-cl: #8A694E;
+    /* Cor secundária clara */
+
+    --terci-es: #433427;
+    /* Cor terciária escura */
+    --terci: #735943;
+    /* Cor terciária */
+    --terci-cl: #A27E60;
+    /* Cor terciária clara */
+
+    --quart-es: #82776A;
+    /* Cor quaternária escura */
+    --quart: #A69D92;
+    /* Cor quaternária */
+    --quart-cl: #C8C3BC;
+    /* Cor quaternária clara */
+
+    --claro-es: #B4B2B0;
+    /* Cor clara escura */
+    --claro: #D9D8D7;
+    /* Cor clara */
+    --claro-cl: #FEFEFE;
+    /* Cor clara extra clara */
+
+    --escur-es: #060606;
+    /* Cor escura extra escura */
+    --escur: #2C2C2C;
+    /* Cor escura */
+    --escur-cl: #525252;
+    /* Cor escura clara */
+
+    --suces-es: #284F39;
+    /* Cor de sucesso escura */
+    --suces: #42825D;
+    /* Cor de sucesso */
+    --suces-cl: #61AF82;
+    /* Cor de sucesso clara */
+
+    --dange-es: #732626;
+    /* Cor de perigo escura */
+    --dange: #AD3939;
+    /* Cor de perigo */
+    --dange-cl: #CD6666;
+    /* Cor de perigo clara */
+}
+
+/* Estilo do corpo da página */
+body {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../assets/background.jpg');
+    height: 100%;
+    width: 100%;
+    background-position: center;
+    font-family: "Inter";
+}
+
+/* Estilo para o cabeçalho personalizado */
+.custom-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem;
+    background: var(--secun);
+    /* Cor secundária */
+    color: #FFFFFF;
+    opacity: 90%;
+}
+
+.custom-header span {
+    font-style: italic;
+    color: var(--prima-cl);
+}
+
+.custom-header h4 {
+    margin: 0 auto;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.custom-header i {
+    font-size: 2.2rem;
+    margin-left: 0.5rem;
+}
+
+.custom-header a {
+    margin-left: auto;
+    padding: 7px;
+    width: 130px;
+    margin-top: 0.3rem;
+    margin-bottom: 0.3rem;
+}
+
+.custom-header a i {
+    font-size: 1rem;
+    /* ícone do botão "Sair" menor */
+    margin-right: 0.5rem;
+}
+
+/* Estilo para os cabeçalhos de tabelas */
+.custom-c-header {
+    background-color: var(--secun) !important;
+    border-color: var(--secun) !important;
+}
+
+.custom-c-body {
+    background-color: var(--prima-cl);
+}
+
+/* Estilo para formulários personalizados */
+.custom-form-1,
+.custom-select-1 {
+    background-color: var(--prima);
+    color: var(--quart-es);
+}
+
+.custom-form-1:focus,
+.custom-select-1:focus {
+    box-shadow: none;
+    background-color: rgb(224, 215, 203);
+    color: var(--quart);
+}
+
+/* Estilo para margens personalizadas */
+.div-custom {
+    margin-bottom: 2vh;
+}
+
+/* Estilo para cabeçalhos com texto centralizado */
+.custom-c-header-2 {
+    text-align: center;
+}
+
+/* Remover aparência do spinner em campos numéricos */
+.custom-form-1[type=number]::-webkit-outer-spin-button,
+.custom-form-1[type=number]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Estilo para títulos e subtítulos */
+h6,
+h5 {
+    color: white;
+}
+
+/* Estilo para as células de tabelas */
+.custom-th-1 {
+    text-transform: uppercase;
+    text-align: center;
+    background-color: var(--secun) !important;
+    color: white !important;
+}
+
+/* Estilos responsivos para dispositivos móveis */
+@media (max-width: 768px) {
+    .custom-header {
+        padding: 1rem;
+    }
+
+    .custom-header a {
+        padding: 3px;
+        max-width: 90px;
+        margin-left: 10px;
+    }
+
+    .custom-header h4 {
+        margin-right: 40px;
+    }
+
+    .navbar {
+        height: auto;
+        text-align: center;
+        padding: 0.5rem 0;
+    }
+
+    .navbar ul {
+        margin: 0 0.3rem !important;
+        padding: 0;
+    }
+
+    .navbar ul li {
+        font-size: 0.7rem !important;
+        margin: 0;
+    }
+}
+
+/* Estilo da barra de navegação */
+.navbar {
+    height: 35px;
+    background: var(--secun-es);
+}
+
+.navbar ul {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    list-style: none;
+    margin: 0;
+    padding: 0 2rem;
+    width: 100%;
+    margin: 0 10rem;
+}
+
+.navbar ul li {
+    color: #fff;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 1rem;
+    transition: 0.3s ease;
+}
+
+.navbar ul li:hover {
+    color: var(--prima-es);
+}
+
+/* Estilo das células de tabelas (th) */
+th {
+    font-weight: bold;
+    font-size: 1.1rem;
+}

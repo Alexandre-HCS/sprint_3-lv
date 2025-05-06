@@ -69,21 +69,21 @@ class Locadora {
     }
 
     //Remover veículo
-    public function deletarVeiculo(string $modelo, string $placa): string{
+    public function deletarVeiculo(string $nome, string $marca): string{
 
-        foreach ($this->roupas as $key => $veiculo){
+        foreach ($this->roupas as $key => $roupa){
 
             // verifica se modelo e placa correspondem
-            if($veiculo->getModelo() === $modelo && $veiculo->getPlaca() === $placa){
+            if($roupa->getNome() === $nome && $roupa->getMarca() === $marca){
                 // remove o veículo do array
-                unset($this->veiculos[$key]);
+                unset($this->roupas[$key]);
 
                 // reorganizar os indices
-                $this->veiculos = array_values($this->veiculos);
+                $this->roupas = array_values($this->roupas);
 
                 // Salvar o novo estado
                 $this->salvarVeiculos();
-                return "Veículo '{$modelo}' removido com sucesso!";
+                return "Vestimenta '{$nome}' removido com sucesso!";
             }
         }
         return "Veículo não encontrado!";

@@ -64,8 +64,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         } else {
             $roupa = null;
         }
-
-        $locadora->adicionarRoupa($roupas);
+        $locadora->adicionarRoupa($roupa);
 
         $mensagem = "Veículo adicionado com sucesso!";
     }

@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ .'/../services/Auth.php';
+require_once __DIR__ . '/../services/Auth.php';
 
 use Services\Auth;
 
@@ -9,10 +9,11 @@ $usuario = Auth::getUsuario();
 
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Locadora de Roupas</title>    
+    <title>Sistema de Locadora de Roupas</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
@@ -243,26 +244,27 @@ $usuario = Auth::getUsuario();
         }
     </style>
 </head>
+
 <body>
     <header class="custom-header container-fluid position-relative">
         <i class="bi bi-person-circle"></i>
-        <h4>Bem vindo, <strong><?= htmlspecialchars($usuario['username'])?></strong></h4>
+        <h4>Bem vindo, <strong><?= htmlspecialchars($usuario['username']) ?></strong></h4>
         <a href="?logout=1" class="btn btn-danger"><i class="bi bi-box-arrow-right"></i> Sair</a>
     </header>
     <nav class="navbar navbar-expand-lg navbar-light">
         <?php if (Auth::isAdmin()): ?>
-        <ul>
-            <li>Cadastrar Produtos</li>
-            <li>Produtos Cadastrados</li>
-            <li>Fornecedores</li>
-        </ul>
+            <ul>
+                <li>Cadastrar Produtos</li>
+                <li>Produtos Cadastrados</li>
+                <li>Fornecedores</li>
+            </ul>
         <?php else: ?>
             <ul>
-            <!-- Lista de seções navegáveis (poderia ser transformada em links reais) -->
-            <li>Peças Disponiveis</li>
-            <li>Promoções</li>
-            <li>Alugar Peças</li>
-        </ul>
+                <!-- Lista de seções navegáveis (poderia ser transformada em links reais) -->
+                <li>Peças Disponiveis</li>
+                <li>Promoções</li>
+                <li>Alugar Peças</li>
+            </ul>
         <?php endif; ?>
     </nav>
     <div class="container py-4">
@@ -274,57 +276,60 @@ $usuario = Auth::getUsuario();
             </div>
         </div>
 
-        <?php if ($mensagem):?>
-        <div class="alert alert-info alert-dismissible fade show" role="alert">
-            <?= htmlspecialchars($mensagem) ?>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
+        <?php if ($mensagem): ?>
+            <div class="alert alert-info alert-dismissible fade show" role="alert">
+                <?= htmlspecialchars($mensagem) ?>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
         <?php endif; ?>
 
         <!-- Formulário para adicionar novo Roupa -->
         <main class="mx-5">
             <div class="row same-height-row">
-            <?php if (Auth::isAdmin()): ?>
-            
-            <h1 class="my-5">Sistema La Vie Elegance</h1>
+                <?php if (Auth::isAdmin()): ?>
 
+                    <h1 class="my-5">Sistema La Vie Elegance</h1>
+                    <div class="col-md-6 div-custom">
+                        <div class="card h-100 custom-card border-0">
+                            <div class="card-header">
+                                <h4 class="mb-0">Adicionar Nova Roupa</h4>
+                            </div>
+                            <div class="card-body custom-c-body">
+                                <form method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
+                                    <div class="mb-3">
+                                        <label for="nome" class="form-label">Nome:</label>
+                                        <input type="text" name="nome" class="form-control custom-form-1" required>
+                                        <div class="invalid-feedback">Informe um nome válido.</div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="marca" class="form-label">Marca:</label>
+                                        <input type="text" name="marca" class="form-control custom-form-1" required>
+                                        <div class="invalid-feedback">Informe uma marca válida.</div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Tipo:</label>
+                                        <select name="tipo" class="form-select custom-select-1" required>
+                                            <option value="Terno_c">Terno completo</option>
+                                            <option value="Smoking">Smoking</option>
+                                            <option value="Blazer">Blazer</option>
+                                            <option value="Vestido_l">Vestido Longo</option>
+                                            <option value="Vestido_c">Vestido Curto</option>
+                                            <option value="Vestido_d">Vestido de debutante</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="foto">Foto da Roupa:</label>
+                                        <input type="file" name="foto" id="foto" accept="image/*" required>
+                                    </div>
+                                    <button type="submit" name="adicionar" class="btn btn-success w-100">Adicionar Roupa</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                <?php endif; ?>
 
-            <div class="col-md-6 div-custom">
-                <div class="card h-100 custom-card border-0">
-                    <div class="card-header">
-                        <h4 class="mb-0">Adicionar Nova Roupa</h4>
-                    </div>
-                    <div class="card-body custom-c-body">
-                        <form method="post" class="needs-validation" novalidate>
-                            <div class="mb-3">
-                                <label for="nome" class="form-label">Nome:</label>
-                                <input type="text" name="nome" class="form-control custom-form-1" required>
-                                <div class="invalid-feedback">Informe um nome válido.</div>
-                            </div>
-                            <div class="mb-3">
-                                <label for="marca" class="form-label">Marca:</label>
-                                <input type="text" name="marca" class="form-control custom-form-1" required>
-                                <div class="invalid-feedback">Informe uma marca válida.</div>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Tipo:</label>
-                                <select name="tipo" class="form-select custom-select-1" required>
-                                <option value="Terno_c">Terno completo</option>
-                                        <option value="Smoking">Smoking</option>
-                                        <option value="Blazer">Blazer</option>
-                                        <option value="Vestido_l">Vestido Longo</option>
-                                        <option value="Vestido_c">Vestido Curto</option>
-                                        <option value="Vestido_d">Vestido de debutante</option>
-                                </select>
-                            </div>
-                            <button type="submit" name="adicionar" class="btn btn-success w-100">Adicionar Roupa</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <?php endif; ?>
-            <!-- Formulário para cálculo de aluguel -->
-            <div class="col-<?= Auth::isAdmin() ? 'md-6':'12' ?>">
+                <!-- Formulário para cálculo de aluguel -->
+                <div class="col-<?= Auth::isAdmin() ? 'md-6' : '12' ?>">
                     <div class="card h-100 div-custom border-0">
                         <div class="card-header custom-c-header">
                             <h4 class="mb-0">Calcular Previsão de Aluguel</h4>
@@ -344,10 +349,13 @@ $usuario = Auth::getUsuario();
                                 </div>
                                 <div class="mb-3">
                                     <label for="qtd_pecas" class="form-label">Quantidade de peças:</label>
-                                    <input type="number" name="qtd_pecas" class="form-control custom-form-1" min="1" value="1" required>
+                                    <input type="number" name="dias_calculo" class="form-control custom-form-1" min="1" value="1" required>
                                 </div>
                                 <button type="submit" name="calcular" class="btn btn-success w-100">Calcular Previsão</button>
                             </form>
+                            <?php if (!empty($mensagem)): ?>
+                                <div class="alert alert-info mt-3"><?= $mensagem ?></div>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>
@@ -370,49 +378,57 @@ $usuario = Auth::getUsuario();
                                             <th>Marca</th>
                                             <th>Status</th>
                                             <?php if (Auth::isAdmin()): ?>
-                                            <th>Ações</th>
+                                                <th>Ações</th>
                                             <?php endif; ?>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php foreach ($locadora->listarRoupas() as $roupa): ?>
-                                        <tr>
-                                            <td>
-                                                <?= $roupa instanceof \Models\Terno_c ? 'Terno_c' : ($roupa instanceof \Models\Smoking ? 'Smoking' : ($roupa instanceof \Models\Blazer ? 'Blazer' : ($roupa instanceof Models\Vestido_l ?'Vestido_l' : ($roupa instanceof Models\Vestido_c ? 'Vestido_c' : 'Vestido_d')))); ?>
-                                            </td>
-                                            <td><?= htmlspecialchars($roupa->getNome()) ?></td>
-                                            <td><?= htmlspecialchars($roupa->getMarca()) ?></td>
-                                            <td>
-                                                <span class="badge bg-<?= $roupa->isDisponivel() ? 'success' : 'warning' ?>">
-                                                    <?= $roupa->isDisponivel() ? 'Disponível' : 'Alugado' ?>
-                                                </span>
-                                            </td>
-                                            <?php if (Auth::isAdmin()): ?>
-                                            <td>
-                                                <div class="action-wrapper">
-                                                    <form method="post" class="btn-group-actions">
-                                                        <input type="hidden" name="nome" value="<?= htmlspecialchars($roupa->getNome()) ?>">
-                                                        <input type="hidden" name="marca" value="<?= htmlspecialchars($roupa->getMarca()) ?>">
-            
-                                                        <!-- Botão Deletar (sempre disponível para admin) -->
-                                                        <button type="submit" name="deletar" class="btn btn-danger btn-sm delete-btn">Deletar</button>
-            
-                                                        <!-- Botões condicionais baseados no status do Roupa -->
-                                                        <div class="rent-group">
-                                                            <?php if (!$roupa->isDisponivel()): ?>
-            
-                                                            <!-- Roupa alugado: Botão Devolver -->
-                                                                <button type="submit" name="devolver" class="btn btn-warning btn-sm">Devolver</button>
-                                                            <?php else: ?>                                              <!-- Roupa disponível: Campo de dias e Botão Alugar -->
-                                                                <input type="number" name="dias" class="form-control days-input" value="1" min="1" required>
-                                                                <button type="submit" name="alugar" class="btn btn-primary btn-sm">Alugar</button>
-                                                            <?php endif; ?>
+                                            <tr>
+                                                <td>
+                                                    <img
+                                                        src="<?= htmlspecialchars($roupa->getFoto()) ?>"
+                                                        alt="Foto de <?= htmlspecialchars($roupa->getNome()) ?>"
+                                                        class="img-fluid img-thumbnail"
+                                                        style="max-width: 100px;">
+                                                </td>
+
+                                                <td>
+                                                    <?= $roupa instanceof \Models\Terno_c ? 'Terno_c' : ($roupa instanceof \Models\Smoking ? 'Smoking' : ($roupa instanceof \Models\Blazer ? 'Blazer' : ($roupa instanceof Models\Vestido_l ? 'Vestido_l' : ($roupa instanceof Models\Vestido_c ? 'Vestido_c' : 'Vestido_d')))); ?>
+                                                </td>
+                                                <td><?= htmlspecialchars($roupa->getNome()) ?></td>
+                                                <td><?= htmlspecialchars($roupa->getMarca()) ?></td>
+                                                <td>
+                                                    <span class="badge bg-<?= $roupa->isDisponivel() ? 'success' : 'warning' ?>">
+                                                        <?= $roupa->isDisponivel() ? 'Disponível' : 'Alugado' ?>
+                                                    </span>
+                                                </td>
+                                                <?php if (Auth::isAdmin()): ?>
+                                                    <td>
+                                                        <div class="action-wrapper">
+                                                            <form method="post" class="btn-group-actions">
+                                                                <input type="hidden" name="nome" value="<?= htmlspecialchars($roupa->getNome()) ?>">
+                                                                <input type="hidden" name="marca" value="<?= htmlspecialchars($roupa->getMarca()) ?>">
+
+                                                                <!-- Botão Deletar (sempre disponível para admin) -->
+                                                                <button type="submit" name="deletar" class="btn btn-danger btn-sm delete-btn">Deletar</button>
+
+                                                                <!-- Botões condicionais baseados no status do Roupa -->
+                                                                <div class="rent-group">
+                                                                    <?php if (!$roupa->isDisponivel()): ?>
+
+                                                                        <!-- Roupa alugado: Botão Devolver -->
+                                                                        <button type="submit" name="devolver" class="btn btn-warning btn-sm">Devolver</button>
+                                                                    <?php else: ?> <!-- Roupa disponível: Campo de dias e Botão Alugar -->
+                                                                        <input type="number" name="dias" class="form-control days-input" value="1" min="1" required>
+                                                                        <button type="submit" name="alugar" class="btn btn-primary btn-sm">Alugar</button>
+                                                                    <?php endif; ?>
+                                                                </div>
+                                                            </form>
                                                         </div>
-                                                    </form>
-                                                </div>
-                                            </td>
-                                            <?php endif; ?>
-                                        </tr>
+                                                    </td>
+                                                <?php endif; ?>
+                                            </tr>
                                         <?php endforeach; ?>
                                     </tbody>
                                 </table>
@@ -421,9 +437,10 @@ $usuario = Auth::getUsuario();
                     </div>
                 </div>
             </div>
-                </div>
-        </main>
+    </div>
+    </main>
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

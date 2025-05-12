@@ -21,17 +21,17 @@ class Locadora {
             foreach ($dados as $dado){
 
                 if ($dado['tipo']=== 'Terno_c'){
-                    $roupa = new Terno_c($dado['nome'], $dado['marca']);
+                    $roupa = new Terno_c($dado['nome'], $dado['marca'], $dado['foto']);
                 } elseif ($dado['tipo'] === 'Smoking') {
-                    $roupa = new Smoking($dado['nome'], $dado['marca']);
+                    $roupa = new Smoking($dado['nome'], $dado['marca'], $dado['foto']);
                 } elseif ($dado['tipo'] === 'Blazer') {
-                    $roupa = new Blazer($dado['nome'], $dado['marca']);
+                    $roupa = new Blazer($dado['nome'], $dado['marca'], $dado['foto']);
                 } elseif ($dado['tipo'] === 'Vestido_l') {
-                    $roupa = new Vestido_l($dado['nome'], $dado['marca']);
+                    $roupa = new Vestido_l($dado['nome'], $dado['marca'], $dado['foto']);
                 } elseif ($dado['tipo'] === 'Vestido_c') {
-                    $roupa = new Vestido_c($dado['nome'], $dado['marca']);
+                    $roupa = new Vestido_c($dado['nome'], $dado['marca'], $dado['foto']);
                 } elseif ($dado['tipo'] === 'Vestido_d') {
-                    $roupa = new Vestido_d($dado['nome'], $dado['marca']);
+                    $roupa = new Vestido_d($dado['nome'], $dado['marca'], $dado['foto']);
                 }
                         $roupa->setDisponivel($dado['disponivel']);
                         $this->roupas[] = $roupa;
@@ -66,8 +66,8 @@ class Locadora {
     public function adicionarRoupa(Roupa $roupa): string{
 
         // verifica se já existe
-        foreach ($this->roupas as $r){
-            if($r->getNome() === $roupa->getNome() && $r->getMarca() === $roupa->getMarca()){
+        foreach ($this->roupas as $roupa){
+            if($roupa->getNome() === $roupa->getNome() && $roupa->getMarca() === $roupa->getMarca()){
                 return "Roupa já cadastrada!";
             }
         }
@@ -149,7 +149,7 @@ class Locadora {
     }
 
     // Calcular previsão do valor
-    public function calcularPrevisaoAluguel(string $tipo, int $dias): float {
+    public function calcularPrevisaoAluguel($tipo, $dias): float {
 
     if($tipo ==='Terno_c'){
         return (new Terno_c('','')) ->calcularAluguel($dias);

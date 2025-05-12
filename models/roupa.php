@@ -7,6 +7,7 @@ abstract class Roupa{
     protected string $nome;
     protected string $marca;
     protected bool $disponivel;
+    protected string $foto;
 
     public function __construct(string $nome, string $marca){
         $this -> nome = $nome;
@@ -23,7 +24,11 @@ abstract class Roupa{
     public function getNome(): string {
         return $this->nome;
     }
-    
+
+    public function getFoto(): string {
+        return $this->foto;
+    }
+
     public function getMarca(): string {
         return $this->marca;
     }

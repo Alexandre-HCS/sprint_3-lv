@@ -155,3 +155,5 @@ class Locadora {
     }
     return 0.0; // Default return value if no match is found
     }
+}
+?>

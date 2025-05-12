@@ -168,6 +168,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
                         </label>
                         <input type="text" name="username" class="form-control" required autocomplete="off" placeholder="Digite seu usuário aqui..." id="username">
                     </div>
+                    <!-- <div class="mb-4">
+                        <label for="email" class="form-label">
+                            E-Mail:
+                        </label>
+                        <input type="text" name="username" class="form-control"  autocomplete="off" placeholder="Digite seu usuário aqui..." id="username">
+                    </div> -->
                     <div class="mb-4 position-relative">
                         <label for="password" class="form-label">
                             Senha:

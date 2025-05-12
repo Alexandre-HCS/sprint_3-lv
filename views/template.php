@@ -318,7 +318,7 @@ $usuario = Auth::getUsuario();
                                         </select>
                                     </div>
                                     <div class="mb-3">
-                                        <label for="foto">Foto da Roupa:</label>
+                                        <label for="foto">Foto da roupa:</label>
                                         <input type="file" name="foto" id="foto" accept="image/*" required>
                                     </div>
                                     <button type="submit" name="adicionar" class="btn btn-success w-100">Adicionar Roupa</button>
@@ -326,119 +326,235 @@ $usuario = Auth::getUsuario();
                             </div>
                         </div>
                     </div>
-                <?php endif; ?>
 
-                <!-- Formulário para cálculo de aluguel -->
-                <div class="col-<?= Auth::isAdmin() ? 'md-6' : '12' ?>">
-                    <div class="card h-100 div-custom border-0">
-                        <div class="card-header custom-c-header">
-                            <h4 class="mb-0">Calcular Previsão de Aluguel</h4>
-                        </div>
-                        <div class="card-body custom-c-body">
-                            <form method="post" class="needs-validation" novalidate>
-                                <div class="mb-3">
-                                    <label for="tipo_calculo" class="form-label">Tipo de vestimenta:</label>
-                                    <select name="tipo_calculo" class="form-select custom-select-1" required>
-                                        <option value="Terno_c">Terno completo</option>
-                                        <option value="Smoking">Smoking</option>
-                                        <option value="Blazer">Blazer</option>
-                                        <option value="Vestido_l">Vestido Longo</option>
-                                        <option value="Vestido_c">Vestido Curto</option>
-                                        <option value="Vestido_d">Vestido de debutante</option>
-                                    </select>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="qtd_pecas" class="form-label">Quantidade de peças:</label>
-                                    <input type="number" name="dias_calculo" class="form-control custom-form-1" min="1" value="1" required>
-                                </div>
-                                <button type="submit" name="calcular" class="btn btn-success w-100">Calcular Previsão</button>
-                            </form>
-                            <?php if (!empty($mensagem)): ?>
-                                <div class="alert alert-info mt-3"><?= $mensagem ?></div>
-                            <?php endif; ?>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Tabela de Roupas cadastrados -->
-            <div class="row mt-4">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4 class="mb-0">Peças Cadastradas</h4>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-striped custom-c-body">
-                                    <thead>
-                                        <tr>
-                                            <th>Tipo</th>
-                                            <th>Foto</th>
-                                            <th>Nome</th>
-                                            <th>Marca</th>
-                                            <th>Status</th>
-                                            <?php if (Auth::isAdmin()): ?>
-                                                <th>Ações</th>
-                                            <?php endif; ?>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php foreach ($locadora->listarRoupas() as $roupa): ?>
-                                            <tr>
-                                                <td>
-                                                    <img
-                                                        src="<?= htmlspecialchars($roupa->getFoto()) ?>"
-                                                        alt="Foto de <?= htmlspecialchars($roupa->getNome()) ?>"
-                                                        class="img-fluid img-thumbnail"
-                                                        style="max-width: 100px;">
-                                                </td>
 
-                                                <td>
-                                                    <?= $roupa instanceof \Models\Terno_c ? 'Terno_c' : ($roupa instanceof \Models\Smoking ? 'Smoking' : ($roupa instanceof \Models\Blazer ? 'Blazer' : ($roupa instanceof Models\Vestido_l ? 'Vestido_l' : ($roupa instanceof Models\Vestido_c ? 'Vestido_c' : 'Vestido_d')))); ?>
-                                                </td>
-                                                <td><?= htmlspecialchars($roupa->getNome()) ?></td>
-                                                <td><?= htmlspecialchars($roupa->getMarca()) ?></td>
-                                                <td>
-                                                    <span class="badge bg-<?= $roupa->isDisponivel() ? 'success' : 'warning' ?>">
-                                                        <?= $roupa->isDisponivel() ? 'Disponível' : 'Alugado' ?>
-                                                    </span>
-                                                </td>
-                                                <?php if (Auth::isAdmin()): ?>
-                                                    <td>
-                                                        <div class="action-wrapper">
-                                                            <form method="post" class="btn-group-actions">
-                                                                <input type="hidden" name="nome" value="<?= htmlspecialchars($roupa->getNome()) ?>">
-                                                                <input type="hidden" name="marca" value="<?= htmlspecialchars($roupa->getMarca()) ?>">
-
-                                                                <!-- Botão Deletar (sempre disponível para admin) -->
-                                                                <button type="submit" name="deletar" class="btn btn-danger btn-sm delete-btn">Deletar</button>
-
-                                                                <!-- Botões condicionais baseados no status do Roupa -->
-                                                                <div class="rent-group">
-                                                                    <?php if (!$roupa->isDisponivel()): ?>
-
-                                                                        <!-- Roupa alugado: Botão Devolver -->
-                                                                        <button type="submit" name="devolver" class="btn btn-warning btn-sm">Devolver</button>
-                                                                    <?php else: ?> <!-- Roupa disponível: Campo de dias e Botão Alugar -->
-                                                                        <input type="number" name="dias" class="form-control days-input" value="1" min="1" required>
-                                                                        <button type="submit" name="alugar" class="btn btn-primary btn-sm">Alugar</button>
-                                                                    <?php endif; ?>
-                                                                </div>
-                                                            </form>
-                                                        </div>
-                                                    </td>
-                                                <?php endif; ?>
-                                            </tr>
-                                        <?php endforeach; ?>
-                                    </tbody>
-                                </table>
+                    <!-- Formulário para cálculo de aluguel -->
+                    <div class="col-<?= Auth::isAdmin() ? 'md-6' : '12' ?>">
+                        <div class="card h-100 div-custom border-0">
+                            <div class="card-header custom-c-header">
+                                <h4 class="mb-0">Calcular Previsão de Aluguel</h4>
+                            </div>
+                            <div class="card-body custom-c-body">
+                                <form method="post" class="needs-validation" novalidate>
+                                    <div class="mb-3">
+                                        <label for="tipo_calculo" class="form-label">Tipo de vestimenta:</label>
+                                        <select name="tipo_calculo" class="form-select custom-select-1" required>
+                                            <option value="Terno_c">Terno completo</option>
+                                            <option value="Smoking">Smoking</option>
+                                            <option value="Blazer">Blazer</option>
+                                            <option value="Vestido_l">Vestido Longo</option>
+                                            <option value="Vestido_c">Vestido Curto</option>
+                                            <option value="Vestido_d">Vestido de debutante</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label for="qtd_pecas" class="form-label">Quantidade de dias:</label>
+                                        <input type="number" name="dias_calculo" class="form-control custom-form-1" min="1" value="1" required>
+                                    </div>
+                                    <button type="submit" name="calcular" class="btn btn-success w-100">Calcular Previsão</button>
+                                </form>
+                                <?php if (!empty($mensagem)): ?>
+                                    <div class="alert alert-info mt-3"><?= $mensagem ?></div>
+                                <?php endif; ?>
                             </div>
                         </div>
                     </div>
+            </div>
+        <?php endif; ?>
+        <?php if (!Auth::isAdmin()): ?>
+            <!-- Campo de pesquisa com ícone de lupa -->
+            <div class="input-icon-wrapper mt-4 pesquisa">
+                <input type="text"> <!-- Campo de texto para busca -->
+                <i class="bi bi-search"></i> <!-- Ícone de lupa (Bootstrap Icons) -->
+            </div>
+
+            <!-- Seção principal da página contendo o carrossel de promoções -->
+            <main class="container">
+                <h1 class="text-center mb-3 mt-3">Promoções do Mês</h1>
+
+                <!-- Carrossel de imagens usando componente do Bootstrap -->
+                <div class="d-flex justify-content-center">
+                    <div class="carousel slide" id="carouselExemplo" data-bs-ride="carousel" data-bs-interval="2000">
+                        <div class="carousel-inner text-center">
+                            <!-- Imagem ativa (primeira a aparecer) -->
+                            <div class="carousel-item active">
+                                <img src="../assets/banner1.png" alt="img 1" class="d-block mx-auto">
+                            </div>
+                            <!-- Segunda imagem -->
+                            <div class="carousel-item">
+                                <img src="../assets/banner2.png" alt="img 2" class="d-block mx-auto">
+                            </div>
+                            <!-- Terceira imagem -->
+                            <div class="carousel-item">
+                                <img src="../assets/banner3.png" alt="img 3" class="d-block mx-auto">
+                            </div>
+                        </div>
+
+                        <!-- Botão anterior do carrossel -->
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExemplo"
+                            data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon seta"></span>
+                        </button>
+
+                        <!-- Botão próximo do carrossel -->
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselExemplo"
+                            data-bs-slide="next">
+                            <span class="carousel-control-next-icon seta"></span>
+                        </button>
+                    </div>
+                </div>
+            </main>
+
+            <!-- Seção com 8 imagens de peças principais para aluguel -->
+            <section class="container">
+                <h1 class="text-center mb-4 mt-4">Principais Peças</h1>
+
+                <!-- Grid responsivo com 4 colunas por linha em dispositivos médios -->
+                <div class="row row-cols-1 row-cols-md-4 g-4">
+                    <!-- Cada item .col representa uma peça de roupa -->
+                    <div class="col text-center">
+                        <img src="../assets/peca-principal1.jpg" alt="Vestido Gucci com Laço" class="img-fluid">
+                        <p>Vestido Gucci com Laço</p>
+                        <!-- Botões de ação -->
+                        <button class="btn btn-sm custom-btn">Calcular aluguel</button>
+                        <button class="btn btn-sm btn-success">Alugar peça</button>
+                    </div>
+                    <div class="col text-center">
+                        <img src="../assets/peca-principal2.jpg" alt="Vestido Casamento Delicado" class="img-fluid">
+                        <p>Vestido Casamento Delicado</p>
+                        <button class="btn btn-sm custom-btn">Calcular aluguel</button>
+                        <button class="btn btn-sm btn-success">Alugar peça</button>
+                    </div>
+                    <div class="col text-center">
+                        <img src="../assets/peca-principal3.jpg" alt="Vestido Lilás Madrinha" class="img-fluid">
+                        <p>Vestido Lilás Madrinha</p>
+                        <button class="btn btn-sm custom-btn">Calcular aluguel</button>
+                        <button class="btn btn-sm btn-success">Alugar peça</button>
+                    </div>
+                    <div class="col text-center">
+                        <img src="../assets/peca-principal4.jpg" alt="Vestido Prata de Gala" class="img-fluid">
+                        <p>Vestido Prata de Gala</p>
+                        <button class="btn btn-sm custom-btn">Calcular aluguel</button>
+                        <button class="btn btn-sm btn-success">Alugar peça</button>
+                    </div>
+                    <div class="col text-center">
+                        <img src="../assets/peca-principal5.jpg" alt="Terno Noivo Azul Marinho" class="img-fluid">
+                        <p>Terno Noivo Azul Marinho</p>
+                        <button class="btn btn-sm custom-btn">Calcular aluguel</button>
+                        <button class="btn btn-sm btn-success">Alugar peça</button>
+                    </div>
+                    <div class="col text-center">
+                        <img src="../assets/peca-principal6.jpg" alt="Terno Masculino Rosa" class="img-fluid">
+                        <p>Terno Masculino - Rosa</p>
+                        <button class="btn btn-sm custom-btn">Calcular aluguel</button>
+                        <button class="btn btn-sm btn-success">Alugar peça</button>
+                    </div>
+                    <div class="col text-center">
+                        <img src="../assets/peca-principal7.jpg" alt="Camiseta Polo Masculina" class="img-fluid">
+                        <p>Camiseta Polo Masculina</p>
+                        <button class="btn btn-sm custom-btn">Calcular aluguel</button>
+                        <button class="btn btn-sm btn-success">Alugar peça</button>
+                    </div>
+                    <div class="col text-center">
+                        <img src="../assets/peca-principal8.jpg" alt="Calça de Terno Comum" class="img-fluid">
+                        <p>Calça de Terno Comum</p>
+                        <button class="btn btn-sm custom-btn">Calcular aluguel</button>
+                        <button class="btn btn-sm btn-success">Alugar peça</button>
+                    </div>
+                </div>
+            </section>
+        <?php endif; ?>
+
+        <!-- Tabela de Roupas cadastrados -->
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="mb-0">Peças Cadastradas</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped custom-c-body">
+                                <thead>
+                                    <tr>
+                                        <th style="visibility: hidden; ">Tipo</th>
+                                        <th>Foto</th>
+                                        <th>Nome</th>
+                                        <th>Marca</th>
+                                        <th>Status</th>
+                                        <?php if (Auth::isAdmin()): ?>
+                                            <th>Ações</th>
+                                        <?php endif; ?>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($locadora->listarRoupas() as $roupa): ?>
+                                        <tr>
+                                            <td style="visibility: hidden;">
+                                                <?= $roupa instanceof \Models\Terno_c ? 'Terno_c' : ($roupa instanceof \Models\Smoking ? 'Smoking' : ($roupa instanceof \Models\Blazer ? 'Blazer' : ($roupa instanceof Models\Vestido_l ? 'Vestido_l' : ($roupa instanceof Models\Vestido_c ? 'Vestido_c' : 'Vestido_d')))); ?>
+                                            </td>
+                                            <td>
+                                                <img src="<?= htmlspecialchars($roupa->getFoto()) ?>"
+                                                    alt="Foto de <?= htmlspecialchars($roupa->getNome()) ?>"
+                                                    class="img-thumbnail" style="max-width:100px;">
+                                            </td>
+                                            <td><?= htmlspecialchars($roupa->getNome()) ?></td>
+                                            <td><?= htmlspecialchars($roupa->getMarca()) ?></td>
+                                            <td>
+                                                <span class="badge bg-<?= $roupa->isDisponivel() ? 'success' : 'warning' ?>">
+                                                    <?= $roupa->isDisponivel() ? 'Disponível' : 'Alugado' ?>
+                                                </span>
+                                            </td>
+                                            <?php if (Auth::isAdmin()): ?>
+                                                <td>
+                                                    <div class="action-wrapper">
+                                                        <form method="post" class="btn-group-actions">
+                                                            <input type="hidden" name="nome" value="<?= htmlspecialchars($roupa->getNome()) ?>">
+                                                            <input type="hidden" name="marca" value="<?= htmlspecialchars($roupa->getMarca()) ?>">
+
+                                                            <!-- Botão Deletar (sempre disponível para admin) -->
+                                                            <button type="submit" name="deletar" class="btn btn-danger btn-sm delete-btn">Deletar</button>
+
+                                                            <!-- Botões condicionais baseados no status do Roupa -->
+                                                            <div class="rent-group">
+                                                                <?php if (!$roupa->isDisponivel()): ?>
+
+                                                                    <!-- Roupa alugado: Botão Devolver -->
+                                                                    <button type="submit" name="devolver" class="btn btn-warning btn-sm">Devolver</button>
+                                                                <?php else: ?> <!-- Roupa disponível: Campo de dias e Botão Alugar -->
+                                                                    <button type="submit" name="alugar" class="btn btn-primary btn-sm">Alugar</button>
+                                                                <?php endif; ?>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </td>
+                                            <?php endif; ?>
+                                        </tr>
+                                    <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
+        </div>
     </div>
     </main>
+
+    <!-- Rodapé -->
+    <?php if (!Auth::isAdmin()): ?>
+        <footer style="background-color: #2a1e15; color: #fff; padding: 20px 10px; text-align: center; margin-top: 30px; margin-bottom: 0; width: 100%;">
+            <div style="margin-bottom: 10px; font-size: 22px;">
+                <a href="#" style="color: #fff; margin: 0 15px;"><i class="bi bi-instagram"></i></a>
+                <a href="#" style="color: #fff; margin: 0 15px;"><i class="bi bi-facebook"></i></a>
+                <a href="#" style="color: #fff; margin: 0 15px;"><i class="bi bi-whatsapp"></i></a>
+            </div>
+            <p style="color: #fff; font-size: 14px;">
+                La Vie Elegance © 2025 - Contato: <a href="mailto:clothes@lavieelegance.com"
+                    style="color: #fff; text-decoration: none;">clothes@lavieelegance.com</a>
+            </p>
+        </footer>
+    <?php endif; ?>
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>

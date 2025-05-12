@@ -6,6 +6,13 @@ use Interfaces\Locavel;
 
 class Vestido_d extends Roupa implements Locavel{
 
+    private bool $disponivel = true; // Define the property with a default value
+    private string $nome; // Define the 'nome' property
+
+    public function __construct(string $nome) {
+        $this->nome = $nome; // Initialize 'nome' in the constructor
+    }
+
     public function calcularAluguel(int $dias): float 
     {
         return $dias * DIARIA_VESTIDO_D;

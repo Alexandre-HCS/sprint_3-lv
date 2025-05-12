@@ -5,6 +5,13 @@ use Interfaces\Locavel;
 // Classe que representa um carro
 
 class Terno_c extends Roupa implements Locavel{
+    private bool $disponivel = true; // Define se o terno está disponível para aluguel
+    private string $nome; // Nome do terno
+
+    // Adiciona um construtor para inicializar o nome
+    public function __construct(string $nome) {
+        $this->nome = $nome;
+    }
 
     public function calcularAluguel(int $dias): float 
     {

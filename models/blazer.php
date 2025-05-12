@@ -6,6 +6,13 @@ use Interfaces\Locavel;
 
 class Blazer extends Roupa implements Locavel{
 
+    private bool $disponivel = true; // Indica se a Blazer está disponível para aluguel
+    private string $nome; // Nome da Blazer
+
+    public function __construct(string $nome) {
+        $this->nome = $nome;
+    }
+
     public function calcularAluguel(int $dias): float 
     {
         return $dias * DIARIA_BLAZER;

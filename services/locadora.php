@@ -17,21 +17,28 @@ class Locadora {
 
             // decodifica o arquivo JSON
             $dados = json_decode(file_get_contents(ARQUIVO_JSON),true);
+            $foto = $dado['foto'] ?? '';
 
             foreach ($dados as $dado){
 
                 if ($dado['tipo']=== 'Terno_c'){
-                    $roupa = new Terno_c($dado['nome'], $dado['marca'], $dado['foto']);
+                    $roupa = new Terno_c($dado['nome'], $dado['marca'], $foto);
+                    $roupa->setFoto($dado['foto']);
                 } elseif ($dado['tipo'] === 'Smoking') {
-                    $roupa = new Smoking($dado['nome'], $dado['marca'], $dado['foto']);
+                    $roupa = new Smoking($dado['nome'], $dado['marca'], $foto);
+                    $roupa->setFoto($dado['foto']);
                 } elseif ($dado['tipo'] === 'Blazer') {
-                    $roupa = new Blazer($dado['nome'], $dado['marca'], $dado['foto']);
+                    $roupa = new Blazer($dado['nome'], $dado['marca'], $foto);
+                    $roupa->setFoto($dado['foto']);
                 } elseif ($dado['tipo'] === 'Vestido_l') {
-                    $roupa = new Vestido_l($dado['nome'], $dado['marca'], $dado['foto']);
+                    $roupa = new Vestido_l($dado['nome'], $dado['marca'], $foto);
+                    $roupa->setFoto($dado['foto']);
                 } elseif ($dado['tipo'] === 'Vestido_c') {
-                    $roupa = new Vestido_c($dado['nome'], $dado['marca'], $dado['foto']);
+                    $roupa = new Vestido_c($dado['nome'], $dado['marca'], $foto);
+                    $roupa->setFoto($dado['foto']);
                 } elseif ($dado['tipo'] === 'Vestido_d') {
-                    $roupa = new Vestido_d($dado['nome'], $dado['marca'], $dado['foto']);
+                    $roupa = new Vestido_d($dado['nome'], $dado['marca'], $foto);
+                    $roupa->setFoto($dado['foto']);
                 }
                         $roupa->setDisponivel($dado['disponivel']);
                         $this->roupas[] = $roupa;
@@ -47,6 +54,7 @@ class Locadora {
             $dados[] = [
                 'tipo' => ($roupa instanceof \Models\Terno_c ? 'Terno_c' : ($roupa instanceof \Models\Smoking ? 'Smoking' : ($roupa instanceof \Models\Blazer ? 'Blazer' : ($roupa instanceof \Models\Vestido_l ? 'Vestido_l' : ($roupa instanceof \Models\Vestido_c ? 'Vestido_c' : 'Vestido_d'))))),
                 'nome' => $roupa -> getNome(),
+                'foto' => $roupa->getFoto(),
                 'marca' => $roupa -> getMarca(),
                 'disponivel' => $roupa -> isDisponivel()
             ];
@@ -77,7 +85,7 @@ class Locadora {
 
         // Salvar o novo estado
         $this->salvarRoupas();
-        return "Roupa '{$roupa->getNome()}' adicionada com sucesso!";
+        return "Roupa '{$roupa->getNome()}', 'foto' => '{$roupa->getFoto()}' adicionada com sucesso!";
     }
 
     //Remover roupa

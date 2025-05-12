@@ -3,18 +3,18 @@ namespace Models;
 
 // Classe abstrata para todos os tipos de Roupas
 
-abstract class Roupa{
-    protected string $nome;
-    protected string $marca;
-    protected bool $disponivel;
-    protected string $foto;
+abstract class Roupa {
+    private string $nome;
+    private string $marca;
+    private bool   $disponivel;
+    protected string $foto = '';
 
-    public function __construct(string $nome, string $marca){
-        $this -> nome = $nome;
-        $this -> marca = $marca;  
-        $this -> disponivel = true;          
+    public function __construct(string $nome, string $marca, string $foto = '') {
+        $this->nome       = $nome;
+        $this->marca      = $marca;
+        $this->disponivel = true;
+        $this->foto       = $foto;
     }
-
     // Função para cálculo de aluguel
     abstract public function calcularAluguel(int $dias) : float;
 
@@ -23,6 +23,10 @@ abstract class Roupa{
     }
     public function getNome(): string {
         return $this->nome;
+    }
+
+    public function setFoto(string $foto): void {
+        $this->foto = $foto;
     }
 
     public function getFoto(): string {

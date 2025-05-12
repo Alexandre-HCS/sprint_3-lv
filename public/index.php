@@ -1,5 +1,9 @@
 <?php
 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 // Incluir o autoload
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -44,30 +48,60 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         }
     }
 
-    if(isset($_POST['adicionar'])){
-        $nome = $_POST['nome'];
-        $marca = $_POST['marca'];
-        $tipo = $_POST['tipo'];
-
-        if ($tipo == 'Terno_c') {
-            $roupa = new Terno_c($nome, $marca);
-        } elseif ($tipo == 'Smoking') {
-            $roupa = new Smoking($nome, $marca);
-        } elseif ($tipo == 'Blazer') {
-            $roupa = new Blazer($nome, $marca);
-        } elseif ($tipo == 'Vestido_l') {
-            $roupa = new Vestido_l($nome, $marca);
-        } elseif ($tipo == 'Vestido_c') {
-            $roupa = new Vestido_c($nome, $marca);
-        } elseif ($tipo == 'Vestido_d') {
-            $roupa = new Vestido_d($nome, $marca);
-        } else {
-            $roupa = null;
+    if (isset($_POST['adicionar'])) {
+        // 1) Dados do formulário
+        $nome  = $_POST['nome']  ?? '';
+        $marca = $_POST['marca'] ?? '';
+        $tipo  = $_POST['tipo']  ?? '';
+    
+        // 2) Inicializa fotoPath com padrão
+        $fotoPath = 'uploads/default.png';
+    
+        // 3) Processa o upload antes de instanciar
+        if (isset($_FILES['foto']) && $_FILES['foto']['error'] === UPLOAD_ERR_OK) {
+            $uploadDir = __DIR__ . '/uploads/';
+            if (!is_dir($uploadDir)) {
+                mkdir($uploadDir, 0775, true);
+            }
+            $fileName   = uniqid() . '-' . basename($_FILES['foto']['name']);
+            $targetFile = $uploadDir . $fileName;
+            if (!move_uploaded_file($_FILES['foto']['tmp_name'], $targetFile)) {
+                die('Falha ao mover o arquivo de imagem.');
+            }
+            // caminho relativo usado no JSON e na exibição
+            $fotoPath = 'uploads/' . $fileName;
         }
+    
+        // 4) Instancia a roupa **uma vez** usando $fotoPath
+        switch ($tipo) {
+            case 'Terno_c':
+                $roupa = new Terno_c($nome, $marca, $fotoPath);
+                break;
+            case 'Smoking':
+                $roupa = new Smoking($nome, $marca, $fotoPath);
+                break;
+            case 'Blazer':
+                $roupa = new Blazer($nome, $marca, $fotoPath);
+                break;
+            case 'Vestido_l':
+                $roupa = new Vestido_l($nome, $marca, $fotoPath);
+                break;
+            case 'Vestido_c':
+                $roupa = new Vestido_c($nome, $marca, $fotoPath);
+                break;
+            case 'Vestido_d':
+                $roupa = new Vestido_d($nome, $marca, $fotoPath);
+                break;
+            default:
+                die('Tipo de roupa inválido.');
+        }
+    
+        // 5) Adiciona e redireciona
         $locadora->adicionarRoupa($roupa);
-
-        $mensagem = "Veículo adicionado com sucesso!";
+        header('Location: index.php?sucesso=1');
+        exit;
     }
+    
 
     elseif(isset($_POST['alugar'])){
         $dias = isset($_POST['dias']) ? (int)$_POST['dias'] : 1;

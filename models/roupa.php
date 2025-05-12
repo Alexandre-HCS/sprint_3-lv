@@ -1,7 +1,7 @@
 <?php
 namespace Models;
 
-// Classe abstrata para todos os tipos de veículos
+// Classe abstrata para todos os tipos de Roupas
 
 abstract class Roupa{
     protected string $nome;

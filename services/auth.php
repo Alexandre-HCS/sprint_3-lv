@@ -25,11 +25,13 @@ class Auth{
             $this -> usuarios = [
                 [
                     'username' => 'admin', 
+                    'email' => '',
                     'password' => password_hash('123', PASSWORD_DEFAULT),
                     'perfil' => 'admin'
                 ],
                 [
                     'username' => 'usuario', 
+                    'email' => 'teste@gmail.com',
                     'password' => password_hash('123', PASSWORD_DEFAULT),
                     'perfil' => 'usuario'
                 ],
@@ -51,9 +53,9 @@ class Auth{
     }
 
     // Método para realizar login
-    public function login(string $username, string $password): bool{
+    public function login(string $username, string $email, string $password): bool{
         foreach ($this -> usuarios as $usuario){
-            if ($usuario['username'] === $username && password_verify($password, $usuario['password'])){
+            if ($usuario['username'] === $username && $usuario['email'] === $email && password_verify($password, $usuario['password'])){
                 $_SESSION['auth'] = [
                     'logado' => true,
                     'username' => $username,

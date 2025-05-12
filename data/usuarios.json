@@ -1,11 +1,13 @@
 [
     {
         "username": "admin",
+        "email": "",
         "password": "$2y$12$o4puChG8n2ZuGN1LebhujOQo5tAWwlIppwZTHJXWPAcOhhzCby.Tq",
         "perfil": "admin"
     },
     {
         "username": "usuario",
+        "email": "teste@gmail.com",
         "password": "$2y$12$z1finJAqi7uzIyELV6.L1um7f5ucVT0g4G5Z205LPbekmVye5.8Eu",
         "perfil": "usuario"
     }

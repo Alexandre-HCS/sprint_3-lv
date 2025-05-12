@@ -39,7 +39,7 @@ class Locadora {
                 }
             }
 
-    // Salvar veículos
+    // Salvar Roupas
     private function salvarRoupas(): void{
         $dados = [];
 
@@ -62,20 +62,32 @@ class Locadora {
         
     }
 
-    // Adicionar novo veículo
-    public function adicionarRoupa(Roupa $roupa): void{
+    // Adicionar nova roupa
+    public function adicionarRoupa(Roupa $roupa): string{
+
+        // verifica se já existe
+        foreach ($this->roupas as $r){
+            if($r->getNome() === $roupa->getNome() && $r->getMarca() === $roupa->getMarca()){
+                return "Roupa já cadastrada!";
+            }
+        }
+
+        // adiciona a roupa
         $this->roupas[] = $roupa;
+
+        // Salvar o novo estado
         $this->salvarRoupas();
+        return "Roupa '{$roupa->getNome()}' adicionada com sucesso!";
     }
 
-    //Remover veículo
+    //Remover roupa
     public function deletarRoupa(string $nome, string $marca): string{
 
         foreach ($this->roupas as $key => $roupa){
 
             // verifica se nome e marca correspondem
             if($roupa->getNome() === $nome && $roupa->getMarca() === $marca){
-                // remove o veículo do array
+                // remove o Roupa do array
                 unset($this->roupas[$key]);
 
                 // reorganizar os indices
@@ -86,13 +98,13 @@ class Locadora {
                 return "Vestimenta '{$nome}' removido com sucesso!";
             }
         }
-        return "Veículo não encontrado!";
+        return "Roupa não encontrado!";
     }
 
-    // Alugar veículo por n dias
+    // Alugar Roupa por n dias
     public function alugarRoupa(string $nome, int $dias = 1): string{
 
-        // percorre a lista de veículos
+        // percorre a lista de Roupas
         foreach($this->roupas as $roupa){
 
             if($roupa->getNome() === $nome && $roupa->isDisponivel()){
@@ -108,10 +120,10 @@ class Locadora {
                 return $mensagem . "Valor do aluguel: R$" . number_format($valorAluguel, 2, ',', '.');
             }
         }
-        return "Veículo não disponível";
+        return "Roupa não disponível";
     }
 
-    // Devolver veículo
+    // Devolver Roupa
 
     public function devolverRoupa(string $nome) :string{
 
@@ -120,17 +132,17 @@ class Locadora {
 
             if($roupa->getNome() === $nome && !$roupa->isDisponivel()){
 
-                // disponibilizar o veículo
+                // disponibilizar o Roupa
                 $mensagem = $roupa->devolver();
 
                 $this->salvarRoupas();
                 return $mensagem;
             }
         }
-        return "Veículo já disponível ou não encontrado.";
+        return "Roupa já disponível ou não encontrado.";
     }
 
-    // Retorna a lista de veículos
+    // Retorna a lista de Roupas
 
     public function listarRoupas():array{
         return $this->roupas;

@@ -12,7 +12,7 @@ $usuario = Auth::getUsuario();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Locadora de Veículos</title>    
+    <title>Sistema de Locadora de Roupas</title>    
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
@@ -281,7 +281,7 @@ $usuario = Auth::getUsuario();
         </div>
         <?php endif; ?>
 
-        <!-- Formulário para adicionar novo veículo -->
+        <!-- Formulário para adicionar novo Roupa -->
         <main class="mx-5">
             <div class="row same-height-row">
             <?php if (Auth::isAdmin()): ?>
@@ -317,7 +317,7 @@ $usuario = Auth::getUsuario();
                                         <option value="Vestido_d">Vestido de debutante</option>
                                 </select>
                             </div>
-                            <button type="submit" name="adicionar" class="btn btn-success w-100">Adicionar Veículo</button>
+                            <button type="submit" name="adicionar" class="btn btn-success w-100">Adicionar Roupa</button>
                         </form>
                     </div>
                 </div>
@@ -352,7 +352,7 @@ $usuario = Auth::getUsuario();
                     </div>
                 </div>
             </div>
-            <!-- Tabela de veículos cadastrados -->
+            <!-- Tabela de Roupas cadastrados -->
             <div class="row mt-4">
                 <div class="col-12">
                     <div class="card">
@@ -397,13 +397,13 @@ $usuario = Auth::getUsuario();
                                                         <!-- Botão Deletar (sempre disponível para admin) -->
                                                         <button type="submit" name="deletar" class="btn btn-danger btn-sm delete-btn">Deletar</button>
             
-                                                        <!-- Botões condicionais baseados no status do veículo -->
+                                                        <!-- Botões condicionais baseados no status do Roupa -->
                                                         <div class="rent-group">
                                                             <?php if (!$roupa->isDisponivel()): ?>
             
-                                                            <!-- Veículo alugado: Botão Devolver -->
+                                                            <!-- Roupa alugado: Botão Devolver -->
                                                                 <button type="submit" name="devolver" class="btn btn-warning btn-sm">Devolver</button>
-                                                            <?php else: ?>                                              <!-- Veículo disponível: Campo de dias e Botão Alugar -->
+                                                            <?php else: ?>                                              <!-- Roupa disponível: Campo de dias e Botão Alugar -->
                                                                 <input type="number" name="dias" class="form-control days-input" value="1" min="1" required>
                                                                 <button type="submit" name="alugar" class="btn btn-primary btn-sm">Alugar</button>
                                                             <?php endif; ?>

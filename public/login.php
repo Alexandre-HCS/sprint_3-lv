@@ -28,10 +28,11 @@ if(Auth::verificarLogin()){
 // Se o usuário não estiver logado / verifica se o formulário está correto
 if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     $username = $_POST['username'] ?? '';
+    $email = $_POST['email'] ?? '';
     $password = $_POST['password'] ?? '';
 
     // Se a verificação na tela de login receber os dados de NOME e SENHA, ou envia para a outra tela, ou mostra a mensagem de erro
-    if($auth->login($username, $password)){
+    if($auth->login($username, $email, $password)){
         header('Location: index.php');
         exit;
     } else {
@@ -43,11 +44,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
 
 <!-- Front End -->
 <!DOCTYPE html>
- <html lang="pt-br">
- <head>
+<html lang="pt-br">
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Locadora de Veículos</title>
+    <title>Login - Locadora de Roupas</title>
     <!-- Link Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
@@ -168,12 +169,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
                         </label>
                         <input type="text" name="username" class="form-control" required autocomplete="off" placeholder="Digite seu usuário aqui..." id="username">
                     </div>
-                    <!-- <div class="mb-4">
+                    <div class="mb-4">
                         <label for="email" class="form-label">
                             E-Mail:
                         </label>
-                        <input type="text" name="username" class="form-control"  autocomplete="off" placeholder="Digite seu usuário aqui..." id="username">
-                    </div> -->
+                        <input type="email" name="email" class="form-control"  autocomplete="off" placeholder="Digite seu e-mail aqui..." id="email">
+                    </div>
                     <div class="mb-4 position-relative">
                         <label for="password" class="form-label">
                             Senha:

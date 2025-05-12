@@ -1,7 +1,7 @@
 <?php
 namespace Interfaces;
 
-// Interface que define os métodos necessários para um veículo ser locável
+// Interface que define os métodos necessários para um Roupa ser locável
 
 interface Locavel {
     public function alugar() : string;

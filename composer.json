@@ -1,6 +1,6 @@
 {
-    "name": "locadora/veiculos",
-    "description": "Sistema de Locadora de Veículos",
+    "name": "locadora/roupas",
+    "description": "Sistema de Aluguel de Roupas",
     "type": "project",
     
     "autoload": {

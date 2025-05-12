@@ -11,7 +11,7 @@ session_start();
 use Services\{Locadora, Auth};
 
 // Importar as classes Carro e Moto
-use Models\{Carro, Moto};
+use Models\{Terno_c, Smoking, Blazer, Vestido_l, Vestido_c, Vestido_d};
 
 // Verificar se o usuário está logado
 if(!Auth::verificarLogin()){
@@ -45,26 +45,40 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     }
 
     if(isset($_POST['adicionar'])){
-        $modelo = $_POST['modelo'];
-        $placa = $_POST['placa'];
+        $nome = $_POST['nome'];
+        $marca = $_POST['marca'];
         $tipo = $_POST['tipo'];
 
-        $veiculo = ($tipo == 'Carro') ? new Carro($modelo, $placa) : new Moto($modelo, $placa);
+        if ($tipo == 'Terno_c') {
+            $roupa = new Terno_c($nome, $marca);
+        } elseif ($tipo == 'Smoking') {
+            $roupa = new Smoking($nome, $marca);
+        } elseif ($tipo == 'Blazer') {
+            $roupa = new Blazer($nome, $marca);
+        } elseif ($tipo == 'Vestido_l') {
+            $roupa = new Vestido_l($nome, $marca);
+        } elseif ($tipo == 'Vestido_c') {
+            $roupa = new Vestido_c($nome, $marca);
+        } elseif ($tipo == 'Vestido_d') {
+            $roupa = new Vestido_d($nome, $marca);
+        } else {
+            $roupa = null;
+        }
 
-        $locadora->adicionarVeiculo($veiculo);
+        $locadora->adicionarRoupa($roupas);
 
         $mensagem = "Veículo adicionado com sucesso!";
     }
 
     elseif(isset($_POST['alugar'])){
         $dias = isset($_POST['dias']) ? (int)$_POST['dias'] : 1;
-        $mensagem = $locadora->alugarVeiculo($_POST['modelo'], $dias);
+        $mensagem = $locadora->alugarRoupa($_POST['nome'], $dias);
     }
     elseif(isset($_POST['devolver'])){
-        $mensagem = $locadora->devolverVeiculo($_POST['modelo']);
+        $mensagem = $locadora->devolverRoupa($_POST['nome']);
     }
     elseif(isset($_POST['deletar'])){
-        $mensagem = $locadora->deletarVeiculo($_POST['modelo'], $_POST['placa']);
+        $mensagem = $locadora->deletarRoupa($_POST['nome'], $_POST['marca']);
     }
     elseif(isset($_POST['calcular'])){
         $dias = (int)$_POST['dias_calculo'];

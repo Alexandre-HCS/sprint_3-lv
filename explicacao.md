@@ -12,7 +12,7 @@ O sistema de Locadora de Veículos é uma aplicação web que permite:
 
 Os dados armazenados em dois arquivos JSON:
 - `usuarios.json`: username, senha criptografada e perfil
-- `veiculos.json`: tipo, modelo, placa, status de disponibilidade
+- `veiculos.json`: tipo, nome, placa, status de disponibilidade
 
 ## 2. Estrutura do Sistema
 O sistema utiliza:

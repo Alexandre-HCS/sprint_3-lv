@@ -14,16 +14,16 @@ O QUE USEI:
     public function alugar(): string {
         if ($this->disponivel){
             $this->disponivel = false;
-            return "Carro '{$this->modelo}' alugado com sucesso!";
+            return "Carro '{$this->nome}' alugado com sucesso!";
         }
-        return "Carro '{$this->modelo}' não disponível.";
+        return "Carro '{$this->nome}' não disponível.";
     }
 
     public function devolver(): string {
         if (!$this->disponivel){
             $this->disponivel = true;
-            return "Carro '{$this->modelo}' devolvido com sucesso!";
+            return "Carro '{$this->nome}' devolvido com sucesso!";
         }
-        return "Carro '{$this->modelo}' está disponível.";
+        return "Carro '{$this->nome}' está disponível.";
     }
   ```

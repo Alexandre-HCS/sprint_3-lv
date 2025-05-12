@@ -299,12 +299,12 @@ $usuario = Auth::getUsuario();
                             <div class="mb-3">
                                 <label for="nome" class="form-label">Nome:</label>
                                 <input type="text" name="nome" class="form-control custom-form-1" required>
-                                <div class="invalid-feedback">Informe um modelo válido.</div>
+                                <div class="invalid-feedback">Informe um nome válido.</div>
                             </div>
                             <div class="mb-3">
                                 <label for="marca" class="form-label">Marca:</label>
                                 <input type="text" name="marca" class="form-control custom-form-1" required>
-                                <div class="invalid-feedback">Informe uma placa válida.</div>
+                                <div class="invalid-feedback">Informe uma marca válida.</div>
                             </div>
                             <div class="mb-3">
                                 <label class="form-label">Tipo:</label>
@@ -375,7 +375,7 @@ $usuario = Auth::getUsuario();
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php foreach ($locadora->listarVeiculos() as $roupa): ?>
+                                        <?php foreach ($locadora->listarRoupas() as $roupa): ?>
                                         <tr>
                                             <td>
                                                 <?= $roupa instanceof \Models\Terno_c ? 'Terno_c' : ($roupa instanceof \Models\Smoking ? 'Smoking' : ($roupa instanceof \Models\Blazer ? 'Blazer' : ($roupa instanceof Models\Vestido_l ?'Vestido_l' : ($roupa instanceof Models\Vestido_c ? 'Vestido_c' : 'Vestido_d')))); ?>
@@ -391,8 +391,8 @@ $usuario = Auth::getUsuario();
                                             <td>
                                                 <div class="action-wrapper">
                                                     <form method="post" class="btn-group-actions">
-                                                        <input type="hidden" name="modelo" value="<?= htmlspecialchars($roupa->getNome()) ?>">
-                                                        <input type="hidden" name="placa" value="<?= htmlspecialchars($roupa->getMarca()) ?>">
+                                                        <input type="hidden" name="nome" value="<?= htmlspecialchars($roupa->getNome()) ?>">
+                                                        <input type="hidden" name="marca" value="<?= htmlspecialchars($roupa->getMarca()) ?>">
             
                                                         <!-- Botão Deletar (sempre disponível para admin) -->
                                                         <button type="submit" name="deletar" class="btn btn-danger btn-sm delete-btn">Deletar</button>

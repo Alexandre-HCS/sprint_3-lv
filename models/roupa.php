@@ -20,11 +20,11 @@ abstract class Roupa{
     public function isDisponivel ():bool {
         return $this->disponivel;
     }
-    public function getModelo(): string {
+    public function getNome(): string {
         return $this->nome;
     }
     
-    public function getPlaca(): string {
+    public function getMarca(): string {
         return $this->marca;
     }
 

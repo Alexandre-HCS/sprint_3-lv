@@ -53,44 +53,24 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         $nome  = $_POST['nome']  ?? '';
         $marca = $_POST['marca'] ?? '';
         $tipo  = $_POST['tipo']  ?? '';
-    
-        // 2) Inicializa fotoPath com padrão
-        $fotoPath = 'uploads/default.png';
-    
-        // 3) Processa o upload antes de instanciar
-        if (isset($_FILES['foto']) && $_FILES['foto']['error'] === UPLOAD_ERR_OK) {
-            $uploadDir = __DIR__ . '/uploads/';
-            if (!is_dir($uploadDir)) {
-                mkdir($uploadDir, 0775, true);
-            }
-            $fileName   = uniqid() . '-' . basename($_FILES['foto']['name']);
-            $targetFile = $uploadDir . $fileName;
-            if (!move_uploaded_file($_FILES['foto']['tmp_name'], $targetFile)) {
-                die('Falha ao mover o arquivo de imagem.');
-            }
-            // caminho relativo usado no JSON e na exibição
-            $fotoPath = 'uploads/' . $fileName;
-        }
-    
-        // 4) Instancia a roupa **uma vez** usando $fotoPath
         switch ($tipo) {
             case 'Terno_c':
-                $roupa = new Terno_c($nome, $marca, $fotoPath);
+                $roupa = new Terno_c($nome, $marca);
                 break;
             case 'Smoking':
-                $roupa = new Smoking($nome, $marca, $fotoPath);
+                $roupa = new Smoking($nome, $marca);
                 break;
             case 'Blazer':
-                $roupa = new Blazer($nome, $marca, $fotoPath);
+                $roupa = new Blazer($nome, $marca);
                 break;
             case 'Vestido_l':
-                $roupa = new Vestido_l($nome, $marca, $fotoPath);
+                $roupa = new Vestido_l($nome, $marca);
                 break;
             case 'Vestido_c':
-                $roupa = new Vestido_c($nome, $marca, $fotoPath);
+                $roupa = new Vestido_c($nome, $marca);
                 break;
             case 'Vestido_d':
-                $roupa = new Vestido_d($nome, $marca, $fotoPath);
+                $roupa = new Vestido_d($nome, $marca);
                 break;
             default:
                 die('Tipo de roupa inválido.');

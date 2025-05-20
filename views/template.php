@@ -317,10 +317,6 @@ $usuario = Auth::getUsuario();
                                             <option value="Vestido_d">Vestido de debutante</option>
                                         </select>
                                     </div>
-                                    <div class="mb-3">
-                                        <label for="foto">Foto da roupa:</label>
-                                        <input type="file" name="foto" id="foto" accept="image/*" required>
-                                    </div>
                                     <button type="submit" name="adicionar" class="btn btn-success w-100">Adicionar Roupa</button>
                                 </form>
                             </div>
@@ -478,7 +474,6 @@ $usuario = Auth::getUsuario();
                                 <thead>
                                     <tr>
                                         <th style="visibility: hidden; ">Tipo</th>
-                                        <th>Foto</th>
                                         <th>Nome</th>
                                         <th>Marca</th>
                                         <th>Status</th>
@@ -492,11 +487,6 @@ $usuario = Auth::getUsuario();
                                         <tr>
                                             <td style="visibility: hidden;">
                                                 <?= $roupa instanceof \Models\Terno_c ? 'Terno_c' : ($roupa instanceof \Models\Smoking ? 'Smoking' : ($roupa instanceof \Models\Blazer ? 'Blazer' : ($roupa instanceof Models\Vestido_l ? 'Vestido_l' : ($roupa instanceof Models\Vestido_c ? 'Vestido_c' : 'Vestido_d')))); ?>
-                                            </td>
-                                            <td>
-                                                <img src="<?= htmlspecialchars($roupa->getFoto()) ?>"
-                                                    alt="Foto de <?= htmlspecialchars($roupa->getNome()) ?>"
-                                                    class="img-thumbnail" style="max-width:100px;">
                                             </td>
                                             <td><?= htmlspecialchars($roupa->getNome()) ?></td>
                                             <td><?= htmlspecialchars($roupa->getMarca()) ?></td>
